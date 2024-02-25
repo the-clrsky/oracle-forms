@@ -1,0 +1,5 @@
+-- Trigger (Module Level)
+WHEN_NEW_FORM_INSTANCE
+
+-- PL/SQL code
+SET_WINDOW_PROPERTY('window_name',WINDOW_STATE,MAXIMIZE);
