@@ -1,0 +1,19 @@
+Exit
+---------------
+EXIT_FORM;
+
+Clear Form
+---------------
+CLEAR_FORM;
+
+Insert
+---------------
+COMMIT_FORM;
+
+Search
+---------------
+EXECUTE_QUERY;
+
+Query Mode
+---------------
+ENTER_QUERY;
