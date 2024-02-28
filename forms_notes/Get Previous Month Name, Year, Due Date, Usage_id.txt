@@ -1,0 +1,45 @@
+-- Trigger (Item)
+
+WHEN-VALIDATE-ITEM
+
+-- Oracle Form Trigger Code to Get Previous Month Name, Year, Due Date, Usage_id
+-- based on Invoice_date
+
+DECLARE
+    v_invoice_date DATE;
+    v_previous_month DATE;
+    v_previous_month_name VARCHAR2(20);
+    v_previous_month_year NUMBER;
+    v_cust_id NUMBER;
+    v_month VARCHAR2(20);
+    v_year NUMBER;
+BEGIN
+    v_invoice_date := :INVOICE.INVOICE_DATE;
+    
+    -- previous month
+    v_previous_month := ADD_MONTHS(v_invoice_date, -1);
+    
+    -- full name of the previous month
+    v_previous_month_name := TO_CHAR(v_previous_month, 'Month');
+    
+    -- year of the previous month
+    v_previous_month_year := EXTRACT(YEAR FROM v_previous_month);
+    
+    -- Send the month name and year to block items
+    :INVOICE.BILLING_MONTH := v_previous_month_name;
+    :INVOICE.BILLING_YEAR := v_previous_month_year;
+    
+    -- Get Due Date, 8 days after Invoice date and send to block
+    :INVOICE.DUE_DATE := v_invoice_date + 8;
+    
+    -- Put previous month, year, and customer ID into the variables
+    SELECT TO_CHAR(v_previous_month, 'MON'), EXTRACT(YEAR FROM v_previous_month), :INVOICE.CUST_ID
+    INTO v_month, v_year, v_cust_id
+    FROM DUAL;
+
+    -- Retrieve usage_id based on previous month, year, and customer ID
+    SELECT usage_id INTO :INVOICE.USAGE_ID
+    FROM USAGE
+    WHERE cust_id = v_cust_id 
+    AND TO_CHAR(duration_end, 'MON-YYYY') = v_month || '-' || v_year; 
+END;
