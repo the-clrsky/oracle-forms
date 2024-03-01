@@ -1,0 +1,5 @@
+-- Trigger Type(Form)
+WHEN_NEW_FORM_INSTANCE
+
+-- Trigger Code
+SET_WINDOW_PROPERTY('window1',WINDOW_STATE,MAXIMIZE);
