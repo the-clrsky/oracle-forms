@@ -1,0 +1,35 @@
+-- Trigger For Auto ID
+
+CREATE OR REPLACE TRIGGER SUMMIT_ADF.NEW_CUSTOMER_TRIGGER before
+  INSERT ON SUMMIT_ADF.S_CUSTOMER FOR EACH row
+BEGIN IF inserting THEN IF :NEW."ID" IS NULL THEN
+  SELECT S_CUSTOMER_ID.nextval INTO :NEW."ID" FROM dual;
+END IF;
+END IF;
+END;
+/
+
+
+-- Procedure to insert data
+
+CREATE OR REPLACE PROCEDURE SUMMIT_ADF.insert_customers
+(p_name IN VARCHAR2, p_phone IN NUMBER) IS
+BEGIN
+INSERT INTO s_customer(NAME, PHONE)
+VALUES(p_name, p_phone);
+END;
+/
+
+-- Forms Button Code
+
+BEGIN
+    insert_new_customers(:S_CUSTOMER.NAME,:S_CUSTOMER.PHONE);
+    COMMIT;
+
+    :SYSTEM.MESSAGE_LEVEL := '10';
+    UP;
+    IF NOT FORM_SUCCESS THEN
+        MESSAGE('Data Inserted');
+    END IF;
+    :SYSTEM.MESSAGE_LEVEL := '0';
+END;
