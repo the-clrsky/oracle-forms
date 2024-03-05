@@ -17,7 +17,7 @@ Step 2: Create a procedure to insert data.
 --------------------------------------------------------------------------------------------------------------
 -- Procedure to insert data --
 
-CREATE OR REPLACE PROCEDURE insert_new_customer
+CREATE OR REPLACE PROCEDURE insert_new_customers
 (p_name IN VARCHAR2, p_phone IN NUMBER) IS
 BEGIN
 INSERT INTO s_customer(NAME, PHONE)
@@ -32,7 +32,6 @@ Step 3: Create a Form module, use a button trigger to invoke the procedure.
 
 BEGIN
     insert_new_customers(:S_CUSTOMER.NAME,:S_CUSTOMER.PHONE);
-    COMMIT;
 
     :SYSTEM.MESSAGE_LEVEL := '10';
     UP;
