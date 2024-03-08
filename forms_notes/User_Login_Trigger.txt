@@ -21,4 +21,9 @@ BEGIN
         MESSAGE('Invalid user ID or password.');
         RAISE FORM_TRIGGER_FAILURE;
     END IF;
+    EXCEPTION
+    WHEN NO_DATA_FOUND THEN
+        -- Handle the case where no matching record is found
+        MESSAGE('Invalid User ID or Password.');
+        RAISE FORM_TRIGGER_FAILURE;
 END;
