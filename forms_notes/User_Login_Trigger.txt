@@ -1,0 +1,24 @@
+DECLARE
+    v_user_id    NUMBER;
+    v_password   VARCHAR2(50);
+BEGIN
+    -- Get user ID and password from the form fields
+    v_user_id := :USERS.USER_ID;
+    v_password := :USERS.PASSWORD;
+    
+    -- Query the USERS table to check if they are valid
+    SELECT USER_ID
+    INTO v_user_id
+    FROM USERS
+    WHERE USER_ID = v_user_id
+    AND PASSWORD = v_password;
+    
+    -- If match found, call dashboard form
+    IF SQL%FOUND THEN
+        CALL_FORM('D:\ISP_FORMS\USER_DASHBOARD.fmx');
+    ELSE
+        -- Display an error message
+        MESSAGE('Invalid user ID or password.');
+        RAISE FORM_TRIGGER_FAILURE;
+    END IF;
+END;
