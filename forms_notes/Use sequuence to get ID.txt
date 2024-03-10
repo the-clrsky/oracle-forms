@@ -1,0 +1,10 @@
+TRIGGER Level = Item
+TRIGGER TYPE = WHEN-VALIDATE-ITEM
+
+---------------------------------------------------------------------------------------------------
+
+Trigger Code
+--------------------
+BEGIN
+             SELECT pkg_id_seq.NEXTVAL INTO :PACKAGE_MASTER.PKG_ID FROM DUAL;
+END;

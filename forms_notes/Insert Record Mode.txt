@@ -1,0 +1,2 @@
+CLEAR_FORM;
+do_key('INSERT_RECORD');
