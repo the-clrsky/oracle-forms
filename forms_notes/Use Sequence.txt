@@ -1,0 +1,14 @@
+TRIGGER Level = Item
+TRIGGER TYPE = WHEN-VALIDATE-ITEM
+
+---------------------------------------------------------------------------------------------------
+
+PL/SQL Code
+--------------------------------------
+
+DECLARE
+  emp_id NUMBER;
+BEGIN
+  SELECT emp_id_seq.NEXTVAL INTO emp_id FROM DUAL;
+  :EMPLOYEES.EMP_ID := emp_id;
+END;

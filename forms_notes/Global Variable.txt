@@ -1,0 +1,4 @@
+Declare Global Variable
+----------------------------------------------
+
+:GLOBAL.variable_name := Default_value;

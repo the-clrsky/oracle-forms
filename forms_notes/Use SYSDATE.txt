@@ -1,0 +1,13 @@
+TRIGGER Level = Item
+TRIGGER TYPE = WHEN-VALIDATE-ITEM
+
+---------------------------------------------------------------------------------------------------
+
+PL/SQL Code
+--------------------------------------
+DECLARE
+  hire_date DATE;
+BEGIN
+	hire_date := SYSDATE;
+  :EMPLOYEES.HIRE_DATE := hire_date;
+END;
