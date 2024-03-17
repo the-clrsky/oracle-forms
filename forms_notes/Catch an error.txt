@@ -1,0 +1,18 @@
+--------------------------------------
+TRIGGER Level = FORM
+--------------------------------------
+TRIGGER TYPE = ON-ERROR
+
+---------------------------------------------------------------------------------------------------
+
+--------------------------------------
+PL/SQL Code
+--------------------------------------
+IF error_code = 40815 THEN  
+  CALL_FORM('D:\ISP_FORMS\ADMIN_LOGIN_PROMPT.fmx');
+--  RAISE FORM_TRIGGER_FAILURE;
+
+ELSE 
+  Message(error_type||'-'||TO_CHAR(error_code)||':'||error_text);
+  RAISE FORM_TRIGGER_FAILURE;
+END IF;

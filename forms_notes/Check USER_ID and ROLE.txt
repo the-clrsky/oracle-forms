@@ -1,0 +1,53 @@
+--------------------------------------------------------
+First declare 2 GLOBAL variables in the Login Page
+--------------------------------------------------------
+In the NEW_FORMS_INSTANCE
+
+:GLOBAL.user_id := 0;
+:GLOBAL.user_role := 0;
+
+
+--------------------------------------------------------
+In the 2nd Page (If any other than admin or dba)
+--------------------------------------------------------
+DECLARE
+  v_user_id NUMBER;
+  v_user_role VARCHAR2(50);
+BEGIN
+  -- Get the user_id and user_role values from the global variables
+  v_user_id := :GLOBAL.user_id;
+  v_user_role := :GLOBAL.user_role;
+  
+  -- Check if the user_id is null or 0, if so, call the 'Admin Login Prompt' form
+  IF v_user_id IS NULL OR v_user_id = 0 THEN
+    CALL_FORM('D:\ISP_FORMS\ADMIN_LOGIN_PROMPT.fmx');
+  ELSE
+    -- If user_id is not null and not 0, and if user_role is not 'Admin' or 'DBA', call the 'User Login Prompt' form
+    IF v_user_role NOT IN ('Admin', 'DBA') THEN
+    CALL_FORM('D:\ISP_FORMS\USER_LOGIN_PROMPT.fmx');
+    END IF;
+  END IF;
+END;
+
+
+--------------------------------------------------------
+In the 2nd Page (If role admin or dba)
+--------------------------------------------------------
+DECLARE
+  v_user_id NUMBER;
+  v_user_role VARCHAR2(50);
+BEGIN
+  -- Get the user_id and user_role values from the global variables
+  v_user_id := :GLOBAL.user_id;
+  v_user_role := :GLOBAL.user_role;
+  
+  -- Check if the user_id is 0 or null, if so, call the 'User Login Prompt' form
+  IF v_user_id IS NULL OR v_user_id = 0 THEN
+    CALL_FORM('D:\ISP_FORMS\USER_LOGIN_PROMPT.fmx');
+  ELSE
+    -- If user_role is 'Admin' or 'DBA', call the 'Admin Login Prompt' form
+    IF v_user_role = 'Admin' OR v_user_role = 'DBA' THEN
+      CALL_FORM('D:\ISP_FORMS\ADMIN_LOGIN_PROMPT.fmx');
+    END IF;
+  END IF;
+END;
