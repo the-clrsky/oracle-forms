@@ -1,0 +1,16 @@
+DECLARE
+   v_start_date DATE;
+   v_end_date DATE;
+BEGIN
+   -- Get the values entered in the date items
+   v_start_date := :OFFER_DETAILS.VALIDITY_START;
+   v_end_date := :OFFER_DETAILS.VALIDITY_STOP;
+
+   -- Check if the second date is lower than 7 days from the first date
+   IF v_end_date < v_start_date + 7 THEN
+      -- Display error message
+      MESSAGE('Offer duration cannot be less than 7 days.');
+      -- Set focus back to the second date item
+      RAISE FORM_TRIGGER_FAILURE;
+   END IF;
+END;

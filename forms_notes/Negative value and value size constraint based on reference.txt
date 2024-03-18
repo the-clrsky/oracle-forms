@@ -1,0 +1,28 @@
+DECLARE
+   v_value NUMBER;
+   v_president_salary NUMBER;
+BEGIN
+   -- Get the value entered in the text item
+   v_value := TO_NUMBER(:EMPLOYEES.SALARY);
+
+   -- Get the salary of the President
+   SELECT salary INTO v_president_salary
+   FROM employees
+   WHERE JOB_TITLE = 'President';
+
+   -- Check if the value is negative
+   IF v_value < 0 THEN
+      -- Display error message
+      MESSAGE('Salary cannot be negative.');
+      -- Set focus back to the text item
+      RAISE FORM_TRIGGER_FAILURE;
+   END IF;
+
+   -- Check if the entered value is higher than the President's salary
+   IF v_value > v_president_salary THEN
+      -- Display error message
+      MESSAGE('Salary cannot be higher than the President''s salary.');
+      -- Set focus back to the text item
+      RAISE FORM_TRIGGER_FAILURE;
+   END IF;
+END;
