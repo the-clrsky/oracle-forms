@@ -38,8 +38,15 @@ BEGIN
     FROM DUAL;
 
     -- Retrieve usage_id based on previous month, year, and customer ID
-    SELECT usage_id INTO :INVOICE.USAGE_ID
-    FROM USAGE
-    WHERE cust_id = v_cust_id 
-    AND TO_CHAR(duration_end, 'MON-YYYY') = v_month || '-' || v_year; 
+    BEGIN
+        SELECT usage_id INTO :INVOICE.USAGE_ID
+        FROM USAGE
+        WHERE cust_id = v_cust_id 
+        AND TO_CHAR(duration_end, 'MON-YYYY') = v_month || '-' || v_year; 
+        
+    EXCEPTION
+        WHEN NO_DATA_FOUND THEN
+            :INVOICE.USAGE_ID := NULL;
+    END;
 END;
+
