@@ -1,0 +1,13 @@
+DECLARE
+   v_last_paid_month NUMBER;
+BEGIN
+  SELECT BILLING_MONTH INTO v_last_paid_month
+  FROM (
+    SELECT BILLING_MONTH
+    FROM Invoice
+    WHERE STATUS = 'Paid' AND CUST_ID = :INVOICE.CUST_ID
+    ORDER BY INVOICE_DATE DESC)
+  WHERE ROWNUM = 1;
+
+  :INVOICE.LAST_PAID_INV := v_last_paid_month;
+END;

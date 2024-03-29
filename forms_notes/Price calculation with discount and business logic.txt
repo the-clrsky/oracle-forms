@@ -1,0 +1,20 @@
+DECLARE
+    v_discount NUMBER;
+    v_total NUMBER;
+    v_new_total NUMBER;
+BEGIN
+    v_total := :INVOICE.PAYABLE;
+    v_discount := NVL(:INVOICE.DISCOUNT, 0);
+    
+    IF v_discount > v_total THEN
+        MESSAGE('Discount cannot be greater than Total.');
+        RAISE FORM_TRIGGER_FAILURE;
+    END IF;
+    
+    v_new_total := v_total - v_discount;
+    :INVOICE.NET_PAY := v_new_total;
+EXCEPTION
+    WHEN OTHERS THEN
+        MESSAGE('An error occurred: ' || SQLERRM);
+        RAISE FORM_TRIGGER_FAILURE;
+END;
