@@ -1,0 +1,39 @@
+Create 2 "Visual Attributes". 
+----------------------------------------------------
+
+"HIGHTLIGHT"
+"NORMAL"
+
+One for the highlighted one, and the other for normal.
+
+Set "HIGHLIGHT"s, "Background Color" to the desired background color.
+
+Create Trigger 1
+-----------------------------------------------------
+Trigger Level = Form
+Trigger Name = WHEN-NEW-ITEM-INSTANCE
+
+PL/SQL Code
+--------------------
+SET_ITEM_PROPERTY(:SYSTEM.CURSOR_ITEM, CURRENT_RECORD_ATTRIBUTE, 'HIGHLIGHT');
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Create Trigger 2
+-----------------------------------------------------
+Trigger Level = Form
+Trigger Name = WHEN-VALIDATE-ITEM
+
+PL/SQL Code
+--------------------
+SET_ITEM_PROPERTY(:SYSTEM.CURSOR_ITEM, CURRENT_RECORD_ATTRIBUTE, 'NORMAL');
+
+*******************
+For items that might be blank add a new trigger.
+-------------------------------------------------------------------
+Trigger Level = Item
+Trigger Name = KEY-NEXT-ITEM
+
+PL/SQL Code
+--------------------
+SET_ITEM_PROPERTY(:SYSTEM.CURSOR_ITEM, CURRENT_RECORD_ATTRIBUTE, 'NORMAL');
