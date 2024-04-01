@@ -1,0 +1,29 @@
+Open Canvas
+-------------------------------------------
+
+*** Open the Canvas (It is not necessary. Going to a window in the canvas will do.)
+-----------------------------
+SHOW_VIEW('STACKED');
+
+
+*** Go to a Item on the canvas
+-----------------------------------------
+
+GO_ITEM('S_ORD.CLOSE');
+
+
+
+Close Canvas
+--------------------------------------------
+
+*** First send cursor to another block 
+---------------------------------------------------
+
+GO_BLOCK('block_name');
+
+HIDE_VIEW('canvas_name');
+
+*** Might need to close the window
+------------------------------------------------
+
+HIDE_WINDOW('window_name');
