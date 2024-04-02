@@ -1,0 +1,19 @@
+Trigger (to hide)
+----------------------
+Trigger Scope : Form
+Trigger Type : WHEN-NEW-FORM-INSTANCE
+----------------------------------------------
+Trigger PL/SQL
+----------------------------------------------
+SET_TAB_PAGE_PROPERTY('tab_canvas_name',visible,property_false);
+
+**************************************************************************************
+
+Button Trigger to show Canvas
+------------------------------------------
+Trigger Scope : Item
+Trigger Type : WHEN-BUTTON-PRESSED
+------------------------------------------
+Trigger PL/SQL
+----------------------------------------------
+SET_TAB_PAGE_PROPERTY('tab_canvas_name',visible,property_true);
