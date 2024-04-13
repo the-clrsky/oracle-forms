@@ -1,0 +1,2 @@
+GO_ITEM('current_item');
+GO_RECORD(:SYSTEM.CURSOR_RECORD + 1);
